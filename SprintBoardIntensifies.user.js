@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name Sprint board intensifies
 // @namespace https://tusksoft.com
-// @version 0.3
+// @version 0.4
 // @description draws attention to items that are approaching or going over original estimate
 // @author Joel Marshall
 // @match *://*.atlassian.net/*
@@ -57,7 +57,7 @@ $(`<style type='text/css'>
 
 
 setInterval(function () {
-    let issues = $(".ghx-issue");
+    let issues = $('div[id^="card-"]');
 
     if (issues.length < 1) {
         console.log("nothing loaded yet");
@@ -65,23 +65,23 @@ setInterval(function () {
     }
 
     issues.each(function () {
-        let originalEstimate = Number.parseFloat($(this).find(".ghx-estimate").text());
-        let actualTime = Number.parseFloat($(this).find(".ghx-extra-field-content").text());
-
+        let that = $(this).parent();
+        let originalEstimate = Number.parseFloat(that.find('[data-testid="platform-card.common.ui.estimate.badge"]:first-child').text());
+        let actualTime = Number.parseFloat(that.find('[data-issuefieldid="timespent"]').text());
         if (actualTime > originalEstimate) {
 
-            if ($(this).hasClass("oh-shit") === false) {
-                setTimeout(() => { $(this).addClass("oh-shit"); $(this).removeClass("oh-dang"); }, Math.floor(Math.random() * 200));
+            if (that.hasClass("oh-shit") === false) {
+                setTimeout(() => { that.addClass("oh-shit"); that.removeClass("oh-dang"); }, Math.floor(Math.random() * 200));
             }
         }
         else if (actualTime > (originalEstimate * .8)) {
-            if ($(this).hasClass("oh-dang") === false) {
-                setTimeout(() => { $(this).addClass("oh-dang"); $(this).removeClass("oh-shit"); }, Math.floor(Math.random() * 200));
+            if (that.hasClass("oh-dang") === false) {
+                setTimeout(() => { that.addClass("oh-dang"); that.removeClass("oh-shit"); }, Math.floor(Math.random() * 200));
 }
         }
         else {
-            $(this).removeClass("oh-dang");
-            $(this).removeClass("oh-shit");
+            that.removeClass("oh-dang");
+            that.removeClass("oh-shit");
     }
     });
 }, 1000);
