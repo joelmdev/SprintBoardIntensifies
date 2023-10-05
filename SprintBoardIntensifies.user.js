@@ -7,6 +7,7 @@
 // @match *://*.atlassian.net/*
 // @require     http://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js
 // @run-at document-end
+// @downloadURL https://github.com/joelmdev/SprintBoardIntensifies/raw/main/SprintBoardIntensifies.user.js
 // ==/UserScript==
 
 
