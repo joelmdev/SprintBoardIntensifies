@@ -70,7 +70,6 @@ setInterval(function () {
         let originalEstimate = Number.parseFloat(that.find('[data-testid="platform-card.common.ui.estimate.badge"]:first-child').text());
         let actualTime = Number.parseFloat(that.find('[data-issuefieldid="timespent"]').text());
         if (actualTime > originalEstimate) {
-
             if (that.hasClass("oh-shit") === false) {
                 setTimeout(() => { that.addClass("oh-shit"); that.removeClass("oh-dang"); }, Math.floor(Math.random() * 200));
             }
@@ -78,11 +77,11 @@ setInterval(function () {
         else if (actualTime > (originalEstimate * .8)) {
             if (that.hasClass("oh-dang") === false) {
                 setTimeout(() => { that.addClass("oh-dang"); that.removeClass("oh-shit"); }, Math.floor(Math.random() * 200));
-}
+            }
         }
         else {
             that.removeClass("oh-dang");
             that.removeClass("oh-shit");
-    }
+        }
     });
 }, 1000);
