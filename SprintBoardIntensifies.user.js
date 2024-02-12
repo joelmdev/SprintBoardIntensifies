@@ -1,13 +1,12 @@
 // ==UserScript==
 // @name Sprint board intensifies
 // @namespace https://tusksoft.com
-// @version 0.4
+// @version 0.5
 // @description draws attention to items that are approaching or going over original estimate
 // @author Joel Marshall
 // @match *://*.atlassian.net/*
 // @require     http://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js
 // @run-at document-end
-// @downloadURL https://github.com/joelmdev/SprintBoardIntensifies/raw/main/SprintBoardIntensifies.user.js
 // ==/UserScript==
 
 
@@ -66,10 +65,11 @@ setInterval(function () {
     }
 
     issues.each(function () {
-        let that = $(this).parent();
-        let originalEstimate = Number.parseFloat(that.find('[data-testid="platform-card.common.ui.estimate.badge"]:first-child').text());
-        let actualTime = Number.parseFloat(that.find('[data-issuefieldid="timespent"]').text());
+        let that = $(this);//.parent();
+        let originalEstimate = Number.parseFloat(that.find('[data-issuefieldid="timeoriginalestimate"]').text());
+        let actualTime = Number.parseFloat(that.find('[data-issuefieldid="aggregatetimespent"]').text());
         if (actualTime > originalEstimate) {
+
             if (that.hasClass("oh-shit") === false) {
                 setTimeout(() => { that.addClass("oh-shit"); that.removeClass("oh-dang"); }, Math.floor(Math.random() * 200));
             }
@@ -77,11 +77,11 @@ setInterval(function () {
         else if (actualTime > (originalEstimate * .8)) {
             if (that.hasClass("oh-dang") === false) {
                 setTimeout(() => { that.addClass("oh-dang"); that.removeClass("oh-shit"); }, Math.floor(Math.random() * 200));
-            }
+}
         }
         else {
             that.removeClass("oh-dang");
             that.removeClass("oh-shit");
-        }
+    }
     });
 }, 1000);
